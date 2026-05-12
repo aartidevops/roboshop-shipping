@@ -1,0 +1,22 @@
+name: Shipping CICD - Pull Request
+run-name: Shipping CICD - Pull Request
+on:
+  pull_request:
+    # Sequence of patterns matched against refs/heads
+    branches:
+      - main
+jobs:
+  ci:
+    uses: raghudevopsb82/github-reusable-actions/.github/workflows/ci-pull-request.yml@main
+    with:
+      component: shipping
+      appType: nodejs
+    secrets:
+      VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
+
+
+
+
+
+
+

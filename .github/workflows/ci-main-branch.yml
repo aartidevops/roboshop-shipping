@@ -1,0 +1,26 @@
+name: Shipping CICD - Main Branch
+run-name: Shipping CICD - Main Branch
+on:
+  push:
+    branches:
+      - main
+jobs:
+  ci:
+    uses: raghudevopsb82/github-reusable-actions/.github/workflows/ci-main-branch.yml@main
+    with:
+      component: shipping
+      appType: maven
+    secrets:
+      VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
+
+  deploy:
+    needs: ci
+    uses: raghudevopsb82/github-reusable-actions/.github/workflows/deploy.yml@main
+    with:
+      component: shipping
+
+
+
+
+
+

@@ -1,0 +1,46 @@
+name: Shipping- Schema Loader
+run-name: Shipping- Schema Loader
+on: workflow_dispatch
+jobs:
+
+
+    code-checkout:
+      runs-on: self-hosted
+      steps:
+        - name: Checkout repo
+          uses: actions/checkout@v4
+          with:
+            repository: raghudevopsb82/roboshop-shipping
+
+    build-container-image:
+      runs-on: self-hosted
+      needs: code-checkout
+      steps:
+        - name: Build Image
+          run: |
+            cd db
+            docker build -t roboshopb82new.azurecr.io/roboshop-shipping-schema-loader:latest .
+
+    push-to-image-registry:
+      runs-on: self-hosted
+      needs: build-container-image
+      steps:
+        - name: Retrieve Vault Secrets
+          id: import-secrets
+          uses: hashicorp/vault-action@v2
+          with:
+            url: http://vault-internal.azdevopsb82.online:8200
+            token: ${{ secrets.VAULT_TOKEN }}
+            secrets: |
+              infra/github-actions ARM_CLIENT_ID | ARM_CLIENT_ID;
+              infra/github-actions ARM_CLIENT_SECRET | ARM_CLIENT_SECRET;
+              infra/github-actions ARM_SUBSCRIPTION_ID | ARM_SUBSCRIPTION_ID;
+              infra/github-actions ARM_TENANT_ID | ARM_TENANT_ID;
+        - name: Push Images
+          run: |
+            az acr login --name roboshopb82new
+            docker push roboshopb82new.azurecr.io/roboshop-shipping-schema-loader:latest
+
+
+
+
