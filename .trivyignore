@@ -1,0 +1,13 @@
+# CVE-2016-1000027: spring-web HttpInvokerServiceExporter deserialization
+# Fixed version: Spring Framework 6.0.0 (Spring Boot 3.x)
+#
+# Why accepted:
+#   This shipping service does NOT use HttpInvokerServiceExporter.
+#   It is a legacy Spring Remoting mechanism, deprecated since Spring 5.3.
+#   Fixing it requires upgrading to Spring Boot 3.x which is a major
+#   migration (Jakarta EE namespace, Java 17 minimum, breaking API changes).
+#   Planned for future sprint when application code is updated.
+#
+# Real-company practice: document accepted CVEs with justification and
+# a planned fix date so the security team can audit them.
+CVE-2016-1000027
