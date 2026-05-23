@@ -16,6 +16,11 @@
 
 	<properties>
 		<java.version>17</java.version>
+		<tomcat.version>9.0.118</tomcat.version>
+		<!-- Override Spring Boot BOM's default Tomcat 9.0.83.
+		     Fixes: CVE-2025-24813, CVE-2026-41293, CVE-2026-43512, CVE-2026-43515
+		     Spring Boot BOM uses ${tomcat.version} internally so this cascades
+		     to all tomcat-embed-* jars automatically. Safe patch upgrade within 9.0.x. -->
 	</properties>
 
 	<dependencies>
