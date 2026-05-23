@@ -46,6 +46,10 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.33</version>
+			<!-- Version pinned explicitly: Spring Boot BOM manages this but Maven 3.9
+			     strict validation fails if the parent can't be resolved before validation.
+			     8.0.33 matches what Spring Boot 2.7.18 BOM provides anyway. -->
 			<scope>runtime</scope>
 		</dependency>
         <dependency>
